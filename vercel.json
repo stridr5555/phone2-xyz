@@ -4,9 +4,6 @@
   "rewrites": [
     { "source": "/", "destination": "/index.html" }
   ],
-  "probes": [
-    { "path": "/", "mustContain": "Speed-to-Lead" }
-  ],
   "github": {
     "enabled": true,
     "silent": true
