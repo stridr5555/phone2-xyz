@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Phone2.xyz — Never miss a Thumbtack lead</title>
+  <meta name="description" content="Speed-to-lead automation for Thumbtack pros. AI answers, qualifies, and books leads so no client slips away." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      color-scheme: dark;
+      font-family: 'Space Grotesk', system-ui, sans-serif;
+      --ink: #e6f5ff;
+      --glow: #72ffec;
+      --rose: #ff6b95;
+      --deep: #0b0c17;
+      --deep2: #0f172a;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: radial-gradient(circle at 20% -10%, #162a62, transparent 45%),
+                  radial-gradient(circle at 80% 20%, #311c5f, transparent 50%),
+                  linear-gradient(180deg, #05060c 0%, #0a0c17 35%, #060612 70%, #030309 100%);
+      color: var(--ink);
+      display: flex;
+      justify-content: center;
+      padding: 2rem 1rem 4rem;
+    }
+    .page {
+      width: min(1200px, 100%);
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
+    }
+    header {
+      display: flex;
+      flex-direction: row;
+      gap: 2rem;
+      align-items: center;
+      justify-content: space-between;
+    }
+    header h1 {
+      font-size: clamp(2.75rem, 4vw, 3.8rem);
+      margin: 0;
+      line-height: 1.1;
+    }
+    header p {
+      margin: 1rem 0 0;
+      max-width: 38ch;
+      color: #b0c6ff;
+    }
+    .hero-badge {
+      padding: 0.35rem 0.85rem;
+      border-radius: 999px;
+      background: rgba(114,255,236,0.2);
+      color: var(--glow);
+      font-size: 0.9rem;
+      border: 1px solid rgba(114,255,236,0.4);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .hero-cta {
+      margin-top: 1.75rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .hero-cta a {
+      padding: 0.9rem 1.8rem;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      border: none;
+      transition: transform 240ms ease, box-shadow 240ms ease;
+    }
+    .cta-primary {
+      background: linear-gradient(135deg, var(--glow), #a5ffcb 60%);
+      color: #020204;
+      box-shadow: 0 10px 35px rgba(114,255,236,0.3);
+    }
+    .cta-secondary {
+      border: 1px solid rgba(226,241,255,0.4);
+      color: #fff;
+    }
+    .hero-cta a:hover { transform: translateY(-3px); }
+    .hero-cta a:focus-visible { outline: 2px solid var(--glow); }
+    .hero-panel {
+      position: relative;
+      flex: 1;
+      min-height: 220px;
+      border-radius: 30px;
+      padding: 2rem;
+      background: rgba(10,15,30,0.8);
+      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+      overflow: hidden;
+      backdrop-filter: blur(12px);
+    }
+    .hero-panel::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 120% -10%, rgba(255,191,0,0.25), transparent 48%);
+      pointer-events: none;
+    }
+    .pulse {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      margin-top: 0.5rem;
+      color: #80d4ff;
+    }
+    .pulse span {
+      display: inline-flex;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--glow);
+      animation: pulse 1.6s infinite ease-in-out;
+      box-shadow: 0 0 12px var(--glow);
+    }
+    @keyframes pulse {
+      0% { transform: scale(0.6); opacity: 0.4; }
+      50% { transform: scale(1.1); opacity: 1; }
+      100% { transform: scale(0.6); opacity: 0.4; }
+    }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+      gap: 1rem;
+    }
+    .card {
+      padding: 1.75rem;
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(6,9,20,0.6);
+      position: relative;
+      overflow: hidden;
+    }
+    .card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(160deg, rgba(255,255,255,0.02), transparent);
+      pointer-events: none;
+    }
+    .card h3 {
+      margin: 0 0 0.35rem;
+      font-size: 1.5rem;
+    }
+    .card p {
+      margin: 0;
+      color: #90a5c6;
+    }
+    section {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .grid-three {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+      gap: 1rem;
+    }
+    .flow-step {
+      padding: 1.6rem;
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(20,22,46,0.75);
+      position: relative;
+    }
+    .flow-step strong {
+      color: var(--glow);
+      font-size: 1.05rem;
+    }
+    .flow-step span {
+      font-size: 0.9rem;
+      color: #9db4cd;
+    }
+    .hero-wave {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    .hero-wave div {
+      padding: 0.75rem 1rem;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.1);
+      font-size: 0.85rem;
+      color: #b0c6ff;
+      background: rgba(255,255,255,0.02);
+    }
+    footer {
+      margin-top: 2rem;
+      padding: 1.5rem;
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(5,7,15,0.8);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+      justify-content: space-between;
+    }
+    button {
+      border-radius: 999px;
+      padding: 0.8rem 1.8rem;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+      background: linear-gradient(135deg,var(--glow),#a5ffcb 80%);
+      color: #04050b;
+      box-shadow: 0 12px 30px rgba(114,255,236,0.3);
+    }
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .hero-panel {
+        order: -1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div>
+        <p class="hero-badge">Speed-to-Lead Cloud</p>
+        <h1>No more missed Thumbtack calls.</h1>
+        <p>Phone2.xyz turns your Twilio (or Thumbtack-forwarded) number into a realtime AI safety net—answering, qualifying, and booking before the contractor even steps off the ladder.</p>
+        <div class="hero-cta">
+          <a href="#flow" class="cta-primary">See the flow</a>
+          <a href="#contact" class="cta-secondary">Book a strategy call</a>
+        </div>
+      </div>
+      <div class="hero-panel">
+        <div class="pulse"><span></span><p>Listening for Thumbtack leads... ready to convert.</p></div>
+        <div class="hero-wave">
+          <div>Instant answer</div>
+          <div>Qualification script</div>
+          <div>Calendar + SMS confirmation</div>
+        </div>
+      </div>
+    </header>
+
+    <section class="stats">
+      <article class="card">
+        <h3>30s</h3>
+        <p>Average response delay before AI steps in—catch every urgent job.</p>
+      </article>
+      <article class="card">
+        <h3>1</h3>
+        <p>Unified Twilio number per contractor, orchestrated by Phone2.xyz so you can sell “missed call automation.”</p>
+      </article>
+      <article class="card">
+        <h3>4x</h3>
+        <p>More scheduled appointments compared to voicemail. Every lead heard, nothing lost to Thumbtack noise.</p>
+      </article>
+    </section>
+
+    <section>
+      <h2>How the Safety Net works</h2>
+      <div class="grid-three">
+        <article class="flow-step">
+          <strong>1. Funnel captures missed calls</strong>
+          <span>Contractor forwards voicemail/no-answer to Phone2.xyz. Ringless push or call invite translates into an instant VM pickup.</span>
+        </article>
+        <article class="flow-step">
+          <strong>2. AI assistant answers</strong>
+          <span>Retell.ai agent scripts: "Hi, this is your Thumbtack AI partner—what service can I help you with today?"</span>
+        </article>
+        <article class="flow-step">
+          <strong>3. Qualify + calendar</strong>
+          <span>Is it an emergency? Project size? Price range? Phone2.xyz routes intel to your calendar + SMS confirmation slips.</span>
+        </article>
+        <article class="flow-step">
+          <strong>4. Summary delivered</strong>
+          <span>Webhook to contractor’s CRM/Slack/Google Docs so they know the lead is ready, even before they step off the job.</span>
+        </article>
+        <article class="flow-step">
+          <strong>5. Thumbtack-friendly</strong>
+          <span>Fully compliant. Phone2.xyz plays well with Thumbtack’s Negotiations API webhooks (builder-friendly OAuth). No extra onboarding for them.</span>
+        </article>
+        <article class="flow-step">
+          <strong>6. Control & insights</strong>
+          <span>Dashboard + analytics show every captured lead, qualification result, and missed-call saved.</span>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <h2>What we sell instead of a raw number</h2>
+      <p>Contractors already know Thumbtack is expensive. They just need to stop losing leads when they’re on the roof. Phone2.xyz sells them “lead triage”—the AI safety net that answers every call, routes what matters, and books appointments without human babysitting.</p>
+      <div class="grid-three">
+        <article class="card">
+          <h3>Safety net</h3>
+          <p>Missed call? AI answers, qualifies, and dispatches the job summary instantly.</p>
+        </article>
+        <article class="card">
+          <h3>Lead qualification</h3>
+          <p>Zapier or Thumbtack webhook triggers outbound call; the AI asks specs + budgets + schedule.</p>
+        </article>
+        <article class="card">
+          <h3>Speed-to-lead</h3>
+          <p>Cut response time below 30 seconds so they stop throwing away $20–$100 leads.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="flow">
+      <h2>Modern design, modern workflow</h2>
+      <p>We built aesthetic, high-conversion flows that match the urgency of a Thumbtack lead. The animation, gradients, and copy keep the experience premium, so you can show contractors a polished dashboard—even if the tech is invisible.</p>
+    </section>
+
+    <footer id="contact">
+      <div>
+        <p>Ready to launch Speed-to-Lead automation for Thumbtack pros? <strong>no more missed calls. no more wasted leads.</strong></p>
+      </div>
+      <button onclick="window.location='mailto:hello@phone2.xyz'">Talk shop</button>
+    </footer>
+  </div>
+</body>
+</html>
