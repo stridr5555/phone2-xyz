@@ -1,332 +1,303 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Phone2.xyz — Never miss a Thumbtack lead</title>
-  <meta name="description" content="Speed-to-lead automation for Thumbtack pros. AI answers, qualifies, and books leads so no client slips away." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      color-scheme: dark;
-      font-family: 'Space Grotesk', system-ui, sans-serif;
-      --ink: #e6f5ff;
-      --glow: #72ffec;
-      --rose: #ff6b95;
-      --deep: #0b0c17;
-      --deep2: #0f172a;
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      min-height: 100vh;
-      background: radial-gradient(circle at 20% -10%, #162a62, transparent 45%),
-                  radial-gradient(circle at 80% 20%, #311c5f, transparent 50%),
-                  linear-gradient(180deg, #05060c 0%, #0a0c17 35%, #060612 70%, #030309 100%);
-      color: var(--ink);
-      display: flex;
-      justify-content: center;
-      padding: 2rem 1rem 4rem;
-    }
-    .page {
-      width: min(1200px, 100%);
-      display: flex;
-      flex-direction: column;
-      gap: 3rem;
-    }
-    header {
-      display: flex;
-      flex-direction: row;
-      gap: 2rem;
-      align-items: center;
-      justify-content: space-between;
-    }
-    header h1 {
-      font-size: clamp(2.75rem, 4vw, 3.8rem);
-      margin: 0;
-      line-height: 1.1;
-    }
-    header p {
-      margin: 1rem 0 0;
-      max-width: 38ch;
-      color: #b0c6ff;
-    }
-    .hero-badge {
-      padding: 0.35rem 0.85rem;
-      border-radius: 999px;
-      background: rgba(114,255,236,0.2);
-      color: var(--glow);
-      font-size: 0.9rem;
-      border: 1px solid rgba(114,255,236,0.4);
-      display: inline-flex;
-      align-items: center;
-      gap: 0.3rem;
-    }
-    .hero-cta {
-      margin-top: 1.75rem;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-    .hero-cta a {
-      padding: 0.9rem 1.8rem;
-      border-radius: 999px;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 1rem;
-      border: none;
-      transition: transform 240ms ease, box-shadow 240ms ease;
-    }
-    .cta-primary {
-      background: linear-gradient(135deg, var(--glow), #a5ffcb 60%);
-      color: #020204;
-      box-shadow: 0 10px 35px rgba(114,255,236,0.3);
-    }
-    .cta-secondary {
-      border: 1px solid rgba(226,241,255,0.4);
-      color: #fff;
-    }
-    .hero-cta a:hover { transform: translateY(-3px); }
-    .hero-cta a:focus-visible { outline: 2px solid var(--glow); }
-    .hero-panel {
-      position: relative;
-      flex: 1;
-      min-height: 220px;
-      border-radius: 30px;
-      padding: 2rem;
-      background: rgba(10,15,30,0.8);
-      border: 1px solid rgba(255,255,255,0.1);
-      box-shadow: 0 20px 60px rgba(0,0,0,0.35);
-      overflow: hidden;
-      backdrop-filter: blur(12px);
-    }
-    .hero-panel::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at 120% -10%, rgba(255,191,0,0.25), transparent 48%);
-      pointer-events: none;
-    }
-    .pulse {
-      display: flex;
-      align-items: center;
-      gap: 0.65rem;
-      margin-top: 0.5rem;
-      color: #80d4ff;
-    }
-    .pulse span {
-      display: inline-flex;
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: var(--glow);
-      animation: pulse 1.6s infinite ease-in-out;
-      box-shadow: 0 0 12px var(--glow);
-    }
-    @keyframes pulse {
-      0% { transform: scale(0.6); opacity: 0.4; }
-      50% { transform: scale(1.1); opacity: 1; }
-      100% { transform: scale(0.6); opacity: 0.4; }
-    }
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
-      gap: 1rem;
-    }
-    .card {
-      padding: 1.75rem;
-      border-radius: 24px;
-      border: 1px solid rgba(255,255,255,0.08);
-      background: rgba(6,9,20,0.6);
-      position: relative;
-      overflow: hidden;
-    }
-    .card::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(160deg, rgba(255,255,255,0.02), transparent);
-      pointer-events: none;
-    }
-    .card h3 {
-      margin: 0 0 0.35rem;
-      font-size: 1.5rem;
-    }
-    .card p {
-      margin: 0;
-      color: #90a5c6;
-    }
-    section {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-    .grid-three {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
-      gap: 1rem;
-    }
-    .flow-step {
-      padding: 1.6rem;
-      border-radius: 22px;
-      border: 1px solid rgba(255,255,255,0.1);
-      background: rgba(20,22,46,0.75);
-      position: relative;
-    }
-    .flow-step strong {
-      color: var(--glow);
-      font-size: 1.05rem;
-    }
-    .flow-step span {
-      font-size: 0.9rem;
-      color: #9db4cd;
-    }
-    .hero-wave {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1rem;
-      margin-top: 1.5rem;
-    }
-    .hero-wave div {
-      padding: 0.75rem 1rem;
-      border-radius: 18px;
-      border: 1px solid rgba(255,255,255,0.1);
-      font-size: 0.85rem;
-      color: #b0c6ff;
-      background: rgba(255,255,255,0.02);
-    }
-    footer {
-      margin-top: 2rem;
-      padding: 1.5rem;
-      border-radius: 24px;
-      border: 1px solid rgba(255,255,255,0.08);
-      background: rgba(5,7,15,0.8);
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      align-items: center;
-      justify-content: space-between;
-    }
-    button {
-      border-radius: 999px;
-      padding: 0.8rem 1.8rem;
-      border: none;
-      font-weight: 600;
-      cursor: pointer;
-      background: linear-gradient(135deg,var(--glow),#a5ffcb 80%);
-      color: #04050b;
-      box-shadow: 0 12px 30px rgba(114,255,236,0.3);
-    }
-    @media (max-width: 768px) {
-      header {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      .hero-panel {
-        order: -1;
-      }
-    }
-  </style>
-</head>
-<body>
-  <div class="page">
-    <header>
-      <div>
-        <p class="hero-badge">Speed-to-Lead Cloud</p>
-        <h1>No more missed Thumbtack calls.</h1>
-        <p>Phone2.xyz turns your Twilio (or Thumbtack-forwarded) number into a realtime AI safety net—answering, qualifying, and booking before the contractor even steps off the ladder.</p>
-        <div class="hero-cta">
-          <a href="#flow" class="cta-primary">See the flow</a>
-          <a href="#contact" class="cta-secondary">Book a strategy call</a>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Phone2.xyz — The AI Safety Net for Home Service Pros</title>
+    <meta
+      name="description"
+      content="Phone2.xyz is the lead-protection platform for HVAC, plumbing, and electrical crews. Never buy the same lead twice."
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              midnight: '#020617',
+              obsidian: '#060b18',
+              eclipse: '#0e1524',
+              accent: '#2dd4bf',
+              pulse: '#34d399',
+              ember: '#fb7185'
+            },
+            fontFamily: {
+              display: ['Space Grotesk', 'Inter', 'system-ui']
+            }
+          }
+        }
+      };
+    </script>
+  </head>
+  <body class="bg-midnight text-slate-100 font-display antialiased">
+    <div class="min-h-screen bg-gradient-to-b from-obsidian via-eclipse to-black">
+      <div class="relative isolate overflow-hidden">
+        <div class="absolute inset-0 opacity-60 blur-3xl bg-gradient-to-br from-emerald-500/30 via-cyan-400/20 to-blue-900"></div>
+        <div class="relative max-w-6xl mx-auto px-6 py-16 space-y-12">
+          <header class="flex flex-col gap-8 lg:grid lg:grid-cols-2 lg:items-center">
+            <div class="space-y-6">
+              <p class="inline-flex items-center gap-2 rounded-full border border-slate-600 px-4 py-1 text-sm text-emerald-300">
+                AI Safety Net · Multi-user SaaS for contractors
+              </p>
+              <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+                Stop lead bleed. Phone2.xyz answers the moments you can't.
+              </h1>
+              <p class="text-slate-300 text-lg">
+                The AI Safety Net for home service pros on Thumbtack and Angi. Never buy the same lead twice—work on the roof while our smart assistant protects your lead pipeline, qualifies the caller, and keeps appointments booked.
+              </p>
+              <div class="flex flex-wrap gap-4">
+                <a href="#roi" class="px-6 py-3 rounded-full bg-accent text-black font-semibold shadow-lg shadow-accent/40">
+                  Run the ROI calculator
+                </a>
+                <a href="#features" class="px-6 py-3 rounded-full border border-slate-600 text-slate-100">
+                  Explore the Phone2 Way
+                </a>
+              </div>
+              <div class="grid grid-cols-2 gap-4 text-sm text-slate-400">
+                <p><strong class="text-white">"Never buy the same lead twice."</strong> Keep qualified prospects in your calendar.</p>
+                <p><strong class="text-white">"Work on the roof, let us handle the phone."</strong></p>
+              </div>
+            </div>
+            <div class="rounded-3xl border border-white/10 bg-gradient-to-b from-slate-900/80 to-slate-900/40 p-6 shadow-2xl shadow-black/60">
+              <div class="flex items-center justify-between text-xs uppercase tracking-wide text-slate-400">
+                <span>Lead Savings</span>
+                <span>Realtime KPI</span>
+              </div>
+              <div class="mt-6 space-y-6">
+                <div class="space-y-1">
+                  <p class="text-3xl font-semibold text-white">97%</p>
+                  <p class="text-xs text-slate-500">Calls answered within two rings</p>
+                </div>
+                <div class="space-y-1">
+                  <p class="text-3xl font-semibold text-pulse">24s</p>
+                  <p class="text-xs text-slate-500">Average safety net response time</p>
+                </div>
+                <div class="space-y-1">
+                  <p class="text-3xl font-semibold text-amber-400">$18,400</p>
+                  <p class="text-xs text-slate-500">Monthly value saved for a 25-lead prospector</p>
+                </div>
+              </div>
+              <div class="mt-8 p-4 rounded-2xl bg-slate-900/60 border border-white/5">
+                <p class="text-xs uppercase text-slate-500">What we protect</p>
+                <p class="text-sm text-slate-200">
+                  Missed Thumbtack leads, unanswered messages, out-of-window calls, and early competitors stealing your contracts.
+                </p>
+              </div>
+            </div>
+          </header>
         </div>
       </div>
-      <div class="hero-panel">
-        <div class="pulse"><span></span><p>Listening for Thumbtack leads... ready to convert.</p></div>
-        <div class="hero-wave">
-          <div>Instant answer</div>
-          <div>Qualification script</div>
-          <div>Calendar + SMS confirmation</div>
+      <section class="max-w-6xl mx-auto px-6 py-12 space-y-10" id="features">
+        <div class="bg-slate-900/80 border border-white/5 rounded-3xl p-8 shadow-xl">
+          <h2 class="text-3xl font-semibold">The Phone2 Way vs. The Old Way</h2>
+          <p class="text-slate-400 mt-2">Compare what you pay for missed leads versus what you could keep with Phone2.xyz.</p>
+          <div class="mt-8 grid gap-6 lg:grid-cols-2">
+            <div class="rounded-2xl border border-white/5 bg-gradient-to-br from-slate-900 via-slate-900/80 to-slate-900/40 p-6 space-y-4">
+              <h3 class="text-lg font-semibold text-rose-400">Old Way</h3>
+              <ul class="space-y-3 text-sm text-slate-300">
+                <li>💸 Pay Thumbtack/Angi per lead and lose 25–40% while on the job.</li>
+                <li>🔕 Calls land on voicemail or get passed to a competitor.</li>
+                <li>😕 No central visibility on missed opportunities.</li>
+                <li>📞 Contractors forced to play phone tag after the fact.</li>
+              </ul>
+            </div>
+            <div class="rounded-2xl border border-white/5 bg-emerald-500/5 p-6 space-y-4">
+              <h3 class="text-lg font-semibold text-emerald-300">Phone2 Way</h3>
+              <ul class="space-y-3 text-sm text-slate-100">
+                <li>🚀 Instant AI answer, qualify, and book before the contractor finishes the last job.</li>
+                <li>📈 Multi-number dashboard shows global call logs and saved leads.</li>
+                <li>🧠 Leads are scored, recorded, and routed to each client portal.</li>
+                <li>🎯 ROI-driven insights: never buy the same lead twice.</li>
+              </ul>
+            </div>
+          </div>
         </div>
-      </div>
-    </header>
-
-    <section class="stats">
-      <article class="card">
-        <h3>30s</h3>
-        <p>Average response delay before AI steps in—catch every urgent job.</p>
-      </article>
-      <article class="card">
-        <h3>1</h3>
-        <p>Unified Twilio number per contractor, orchestrated by Phone2.xyz so you can sell “missed call automation.”</p>
-      </article>
-      <article class="card">
-        <h3>4x</h3>
-        <p>More scheduled appointments compared to voicemail. Every lead heard, nothing lost to Thumbtack noise.</p>
-      </article>
-    </section>
-
-    <section>
-      <h2>How the Safety Net works</h2>
-      <div class="grid-three">
-        <article class="flow-step">
-          <strong>1. Funnel captures missed calls</strong>
-          <span>Contractor forwards voicemail/no-answer to Phone2.xyz. Ringless push or call invite translates into an instant VM pickup.</span>
-        </article>
-        <article class="flow-step">
-          <strong>2. AI assistant answers</strong>
-          <span>Retell.ai agent scripts: "Hi, this is your Thumbtack AI partner—what service can I help you with today?"</span>
-        </article>
-        <article class="flow-step">
-          <strong>3. Qualify + calendar</strong>
-          <span>Is it an emergency? Project size? Price range? Phone2.xyz routes intel to your calendar + SMS confirmation slips.</span>
-        </article>
-        <article class="flow-step">
-          <strong>4. Summary delivered</strong>
-          <span>Webhook to contractor’s CRM/Slack/Google Docs so they know the lead is ready, even before they step off the job.</span>
-        </article>
-        <article class="flow-step">
-          <strong>5. Thumbtack-friendly</strong>
-          <span>Fully compliant. Phone2.xyz plays well with Thumbtack’s Negotiations API webhooks (builder-friendly OAuth). No extra onboarding for them.</span>
-        </article>
-        <article class="flow-step">
-          <strong>6. Control & insights</strong>
-          <span>Dashboard + analytics show every captured lead, qualification result, and missed-call saved.</span>
-        </article>
-      </div>
-    </section>
-
-    <section>
-      <h2>What we sell instead of a raw number</h2>
-      <p>Contractors already know Thumbtack is expensive. They just need to stop losing leads when they’re on the roof. Phone2.xyz sells them “lead triage”—the AI safety net that answers every call, routes what matters, and books appointments without human babysitting.</p>
-      <div class="grid-three">
-        <article class="card">
-          <h3>Safety net</h3>
-          <p>Missed call? AI answers, qualifies, and dispatches the job summary instantly.</p>
-        </article>
-        <article class="card">
-          <h3>Lead qualification</h3>
-          <p>Zapier or Thumbtack webhook triggers outbound call; the AI asks specs + budgets + schedule.</p>
-        </article>
-        <article class="card">
-          <h3>Speed-to-lead</h3>
-          <p>Cut response time below 30 seconds so they stop throwing away $20–$100 leads.</p>
-        </article>
-      </div>
-    </section>
-
-    <section id="flow">
-      <h2>Modern design, modern workflow</h2>
-      <p>We built aesthetic, high-conversion flows that match the urgency of a Thumbtack lead. The animation, gradients, and copy keep the experience premium, so you can show contractors a polished dashboard—even if the tech is invisible.</p>
-    </section>
-
-    <footer id="contact">
-      <div>
-        <p>Ready to launch Speed-to-Lead automation for Thumbtack pros? <strong>no more missed calls. no more wasted leads.</strong></p>
-      </div>
-      <button onclick="window.location='mailto:hello@phone2.xyz'">Talk shop</button>
-    </footer>
-  </div>
-</body>
+        <div class="grid gap-6 md:grid-cols-2">
+          <article class="rounded-3xl border border-white/5 bg-gradient-to-br from-slate-900/80 to-slate-900/40 p-6 space-y-5">
+            <div class="flex items-center justify-between text-xs uppercase tracking-widest text-slate-400">
+              <span>Manager Dashboard (Admin)</span>
+              <span>Multi-user view</span>
+            </div>
+            <h3 class="text-2xl font-semibold">Control every Phone2.ai line</h3>
+            <p class="text-sm text-slate-300">
+              View global call logs, monitor "Leads Saved" across all clients, and toggle each contractor’s safety net without touching their phones.
+            </p>
+            <div class="grid gap-3 text-sm">
+              <div class="rounded-2xl border border-white/5 bg-slate-900/60 p-4">
+                <p class="text-xs text-slate-500">Active Numbers</p>
+                <p class="text-2xl font-semibold text-accent">26</p>
+              </div>
+              <div class="rounded-2xl border border-white/5 bg-slate-900/60 p-4">
+                <p class="text-xs text-slate-500">Leads Saved This Week</p>
+                <p class="text-2xl font-semibold text-pulse">312</p>
+              </div>
+              <div class="rounded-2xl border border-white/5 bg-slate-900/60 p-4">
+                <p class="text-xs text-slate-500">Global Answer Rate</p>
+                <p class="text-2xl font-semibold text-amber-400">97%</p>
+              </div>
+            </div>
+          </article>
+          <article class="rounded-3xl border border-white/5 bg-gradient-to-br from-emerald-500/5 via-slate-900/70 to-slate-900/40 p-6 space-y-5">
+            <div class="flex items-center justify-between text-xs uppercase tracking-widest text-slate-400">
+              <span>Client Portal (Contractor)</span>
+              <span>Simple login</span>
+            </div>
+            <h3 class="text-2xl font-semibold">Their personal assistant</h3>
+            <p class="text-sm text-slate-300">
+              Contractors see recordings, text-back transcripts, and a single toggle to Enable/Disable their agent when the crew gets ultra-busy.
+            </p>
+            <div class="space-y-3 text-sm">
+              <div class="rounded-2xl border border-white/5 bg-slate-900/60 p-4">
+                <p class="text-xs text-slate-500">Call Recordings</p>
+                <p class="text-white">View audio, timeline, and qualification outcomes per lead.</p>
+              </div>
+              <div class="rounded-2xl border border-white/5 bg-slate-900/60 p-4">
+                <p class="text-xs text-slate-500">Transcripts</p>
+                <p class="text-white">Read the automated text-back messages and confirm details.</p>
+              </div>
+              <div class="rounded-2xl border border-white/5 bg-slate-900/60 p-4 flex items-center justify-between">
+                <span class="text-xs text-slate-400">AI Agent</span>
+                <button class="px-4 py-1 text-xs rounded-full border border-slate-600 text-white">Enable / Disable</button>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+      <section class="bg-slate-900/70 border border-white/5 rounded-3xl max-w-6xl mx-auto px-6 py-12 space-y-10" id="onboarding">
+        <div class="flex flex-col gap-3">
+          <p class="text-sm uppercase tracking-wide text-emerald-300">Onboarding Flow</p>
+          <h2 class="text-3xl font-semibold">Claim your AI number in three steps</h2>
+        </div>
+        <div class="grid gap-6 md:grid-cols-3">
+          <div class="space-y-3 rounded-2xl border border-white/5 bg-slate-900/60 p-5">
+            <p class="text-2xl font-bold text-accent">1</p>
+            <h3 class="text-lg font-semibold">Claim their AI Number</h3>
+            <p class="text-sm text-slate-300">Enter your business name and service area. Phone2.xyz provisions the dedicated line instantly.</p>
+          </div>
+          <div class="space-y-3 rounded-2xl border border-white/5 bg-slate-900/60 p-5">
+            <p class="text-2xl font-bold text-accent">2</p>
+            <h3 class="text-lg font-semibold">Set business hours & specialties</h3>
+            <p class="text-sm text-slate-300">Define peak hours, emergency windows, and service specialties so the AI knows how to prioritize.</p>
+          </div>
+          <div class="space-y-3 rounded-2xl border border-white/5 bg-slate-900/60 p-5">
+            <p class="text-2xl font-bold text-accent">3</p>
+            <h3 class="text-lg font-semibold">Go live with the safety net</h3>
+            <p class="text-sm text-slate-300">Phone2.xyz routes every missed call, texts back lead summaries, and books the first available slot.</p>
+          </div>
+        </div>
+      </section>
+      <section class="max-w-6xl mx-auto px-6 py-12 space-y-10" id="features">
+        <div class="grid gap-6 lg:grid-cols-2">
+          <article class="rounded-3xl border border-white/5 bg-gradient-to-br from-slate-900/70 to-slate-900/40 p-6 space-y-4">
+            <p class="text-xs uppercase tracking-widest text-emerald-400">Option 1</p>
+            <h3 class="text-2xl font-semibold">The Safety Net</h3>
+            <p class="text-sm text-slate-300">Missed Call Text-Back is customizable. Choose the SMS voice, message, and follow-up trigger.</p>
+            <div class="space-y-3">
+              <div class="rounded-2xl border border-white/5 bg-slate-900/60 p-4">
+                <p class="text-xs text-slate-500">Missed call SMS</p>
+                <p class="text-white">"Hi, we just missed you on Thumbtack. Share a few details and we’ll lock you in this afternoon."</p>
+              </div>
+              <div class="rounded-2xl border border-white/5 bg-slate-900/60 p-4">
+                <p class="text-xs text-slate-500">Customization</p>
+                <p class="text-white">Adjust the tone, signature, and the link to your calendar.</p>
+              </div>
+            </div>
+          </article>
+          <article class="rounded-3xl border border-white/5 bg-gradient-to-br from-slate-900/70 to-slate-900/40 p-6 space-y-4">
+            <p class="text-xs uppercase tracking-widest text-emerald-400">Option 2</p>
+            <h3 class="text-2xl font-semibold">Lead Dialer</h3>
+            <p class="text-sm text-slate-300">Speed-to-Lead dashboard tracks how fast the AI reaches a new Thumbtack lead. Slice by crew, market, or service category.</p>
+            <div class="space-y-3">
+              <div class="rounded-2xl border border-white/5 bg-slate-900/60 p-4">
+                <p class="text-xs text-slate-500">Average response time</p>
+                <p class="text-2xl text-pulse font-semibold">24s</p>
+              </div>
+              <div class="rounded-2xl border border-white/5 bg-slate-900/60 p-4">
+                <p class="text-xs text-slate-500">Leads contacted</p>
+                <p class="text-white">Every message captured, transcribed, and routed back to you.</p>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+      <section class="max-w-6xl mx-auto px-6 py-12 space-y-8" id="roi">
+        <div class="rounded-3xl border border-white/5 bg-gradient-to-br from-emerald-500/5 to-slate-900/70 p-8">
+          <div class="flex flex-col gap-2">
+            <p class="text-xs uppercase tracking-widest text-emerald-300">ROI Calculator</p>
+            <h2 class="text-3xl font-semibold">Never buy the same lead twice</h2>
+            <p class="text-sm text-slate-200">
+              Input your Thumbtack lead cost and your miss rate to see the revenue the safety net saves every month.
+            </p>
+          </div>
+          <div class="mt-6 grid gap-6 md:grid-cols-3">
+            <label class="space-y-2 text-sm">
+              <span>Lead cost (USD)</span>
+              <input id="leadCost" type="number" min="0" value="60" class="w-full rounded-2xl border border-white/10 bg-slate-900/60 px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-accent" />
+            </label>
+            <label class="space-y-2 text-sm">
+              <span>Leads per week</span>
+              <input id="leadCount" type="number" min="0" value="35" class="w-full rounded-2xl border border-white/10 bg-slate-900/60 px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-accent" />
+            </label>
+            <label class="space-y-2 text-sm">
+              <span>% of leads missed</span>
+              <input id="missRate" type="number" min="0" max="100" value="32" class="w-full rounded-2xl border border-white/10 bg-slate-900/60 px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-accent" />
+            </label>
+          </div>
+          <div class="mt-6 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+            <button id="calcButton" class="rounded-3xl bg-accent px-6 py-3 font-semibold text-slate-900 shadow-xl shadow-accent/40">
+              Calculate ROI
+            </button>
+            <div class="space-y-1 text-sm text-slate-200">
+              <p>Lost revenue prevented:</p>
+              <p id="roiResult" class="text-2xl font-semibold text-white">$4,032 / month</p>
+              <p class="text-xs text-slate-400">Assumes missed leads get converted with AI safety net.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="max-w-6xl mx-auto px-6 py-12 space-y-8">
+        <div class="rounded-3xl border border-white/5 bg-slate-900/60 p-6 space-y-6">
+          <h2 class="text-3xl font-semibold">Simulated Phone2 Integration</h2>
+          <p class="text-sm text-slate-300">Placeholders for the command center controls—show prospects how Phone2.xyz orchestrates leads without overwhelming them.</p>
+          <div class="grid gap-5 md:grid-cols-3">
+            <div class="rounded-2xl border border-white/5 bg-slate-900/40 p-5 space-y-2">
+              <p class="text-xs uppercase tracking-widest text-video">Buy Number</p>
+              <p class="text-sm text-white">Provision a new local number for their market in seconds.</p>
+              <button class="mt-3 w-full rounded-full border border-slate-600 px-3 py-2 text-xs text-slate-200">Purchase</button>
+            </div>
+            <div class="rounded-2xl border border-white/5 bg-slate-900/40 p-5 space-y-2">
+              <p class="text-xs uppercase tracking-widest text-video">Forwarding Address</p>
+              <p class="text-sm text-white">Route missed calls into the safety net in real time.</p>
+              <button class="mt-3 w-full rounded-full border border-slate-600 px-3 py-2 text-xs text-slate-200">Set Route</button>
+            </div>
+            <div class="rounded-2xl border border-white/5 bg-slate-900/40 p-5 space-y-2">
+              <p class="text-xs uppercase tracking-widest text-video">AI Voice Selection</p>
+              <p class="text-sm text-white">Pick the tone that fits your brand voice.</p>
+              <button class="mt-3 w-full rounded-full border border-slate-600 px-3 py-2 text-xs text-slate-200">Choose Voice</button>
+            </div>
+          </div>
+        </div>
+      </section>
+      <footer class="mt-12 border-t border-white/10 bg-gradient-to-b from-midnight via-obsidian to-black py-10">
+        <div class="max-w-6xl mx-auto px-6 text-sm text-slate-400 space-y-3">
+          <p>Phone2.xyz · The AI Safety Net for Home Service Pros</p>
+          <p>Designed for HVAC, plumbing, and electrical crews who depend on Thumbtack and Angi leads.</p>
+          <p class="text-xs">© <span id="currentYear"></span> Phone2.xyz. Never buy the same lead twice.</p>
+        </div>
+      </footer>
+    </div>
+    <script>
+      const calc = () => {
+        const cost = parseFloat(document.getElementById('leadCost').value) || 0;
+        const count = parseFloat(document.getElementById('leadCount').value) || 0;
+        const miss = parseFloat(document.getElementById('missRate').value) || 0;
+        const weeklyLoss = cost * count * (miss / 100);
+        const monthly = weeklyLoss * 4;
+        document.getElementById('roiResult').textContent = `$${monthly.toLocaleString(undefined, { minimumFractionDigits: 0 })} / month`;
+      };
+      document.getElementById('calcButton').addEventListener('click', calc);
+      document.getElementById('currentYear').textContent = new Date().getFullYear();
+      window.addEventListener('load', calc);
+    </script>
+  </body>
 </html>
